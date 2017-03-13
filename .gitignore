@@ -1,0 +1,11 @@
+*.iml
+*.lock
+keystore.properties
+local.properties
+
+.gradle/
+.idea/
+build/
+
+gradle/wrapper/dists/
+gradle/caches/

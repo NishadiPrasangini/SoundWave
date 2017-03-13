@@ -5,6 +5,8 @@ Source to our SoundWave application.
 
 You can download it for your Android device here: https://play.google.com/store/apps/details?id=com.synaptik.soundwave
 
+If you enjoy using the application, please consider supporting us by purchasing the full version here: https://play.google.com/store/apps/details?id=com.synaptik.soundwave.pro
+
 Description
 ===========
 
