@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.WindowManager;
 
 public class MainActivity extends Activity implements OnUpdateListener {
 	MySurfaceView mView;
@@ -21,8 +22,9 @@ public class MainActivity extends Activity implements OnUpdateListener {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mView = new MySurfaceView(this);
+		mView = new MySurfaceView(this);
         setContentView(mView);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
     
     @Override
