@@ -33,6 +33,7 @@ public class MySurfaceView extends View {
 	SurfaceHolder mHolder;
 	
 	protected short[] mSampleData;
+	protected float[] mPoints;
 	protected int mSampleSize;
 	protected float mSampleLength;
 	protected float mTimePerSlot;
@@ -58,7 +59,7 @@ public class MySurfaceView extends View {
 		mPaint = new Paint();
 		mPaint.setColor(Color.WHITE);
 		mBitmap = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.ic_launcher);
-		mData = new TreeMap<Float, List<Integer>>();
+		mData = new TreeMap<>();
 	}
 	
 	public void setData(short[] data, int sampleSize, float sampleLength) {
@@ -72,6 +73,9 @@ public class MySurfaceView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.BLACK);
+		if (mPoints == null) {
+			mPoints = new float[canvas.getWidth() * 4];
+		}
 		mData.clear();
 		
 		if (mSampleData != null) {
@@ -79,7 +83,6 @@ public class MySurfaceView extends View {
 			int step = mSampleSize / numPoints;
 			int halfHeight = canvas.getHeight() / 2;
 	
-			float[] points = new float[numPoints * 4];		// a line = 4 points: x0,y0,x1,y1
 			float oldX = 0.0f;
 			float oldY = halfHeight;
 			int pointAboveZero = -1;
@@ -87,16 +90,16 @@ public class MySurfaceView extends View {
 			for (int i = 0; i < numPoints; i ++) {
 				short val = mSampleData[i*step];
 				float y = (((float)val / AudioMonitor.PCM_MAXIMUM_VALUE) * halfHeight) + halfHeight;
-				points[i*4+0] = oldX;
-				points[i*4+1] = oldY;
-				
-				points[i*4+2] = i;
-				points[i*4+3] = y;
+				mPoints[i*4+0] = oldX;
+				mPoints[i*4+1] = oldY;
+
+				mPoints[i*4+2] = i;
+				mPoints[i*4+3] = y;
 				
 				oldX = i;
 				oldY = y;
 			}
-			canvas.drawLines(points, mPaint);
+			canvas.drawLines(mPoints, mPaint);
 
 			for (int i = 0; i < mSampleSize; i ++) {
 				short val = mSampleData[i];

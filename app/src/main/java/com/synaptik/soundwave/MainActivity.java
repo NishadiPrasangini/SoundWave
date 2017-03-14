@@ -122,8 +122,6 @@ public class MainActivity extends Activity implements OnUpdateListener {
 						}
 					})
 					.show();
-		} else {
-
 		}
 	}
 
